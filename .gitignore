@@ -1,4 +1,6 @@
 __pycache__
 Texture_base
-tmp.py
+*tmp.py
+*.pytest_cache
+venv
 .vscode
