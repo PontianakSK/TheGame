@@ -2,6 +2,7 @@ from collections import namedtuple
 from itertools import product
 from math import ceil, floor
 import random
+from typing import Optional, Dict
 
 from game_map.height_gens.abstract_gen import TileHeightGenerator #type: ignore
 
@@ -18,11 +19,11 @@ class PerlinNoise(TileHeightGenerator):
 
 
 
-    def __init__(self,frequency, seed=None):
+    def __init__(self,frequency: int, seed: Optional[str] = None):
     
         if seed != None:
             random.seed(seed)
-        self.gradients = {}
+        self.gradients: Dict[Point,Gradient] = {}
         self.frequency = frequency
         self.set_gradients()
 
@@ -96,11 +97,11 @@ class PerlinNoise(TileHeightGenerator):
         max_x = ceil(target_point.x)
         min_y = floor(target_point.y)
         max_y = ceil(target_point.y)        
-        closest_nodes = []
+        closest_nodes = set()
 
         for y,x in product((min_y,max_y),(min_x,max_x)):
             node = Point(y,x)
-            closest_nodes.append(node)
+            closest_nodes.add(node)
 
         perlin_noise:float = 0
 
