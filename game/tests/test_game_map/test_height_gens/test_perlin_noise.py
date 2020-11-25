@@ -6,6 +6,8 @@ from tests.settings import RANDOM_SEED
 
 perlin_noise = PerlinNoise(10,RANDOM_SEED)
 
+#All height values below are checked with RANDOM_SEED == 'test'
+
 def test_initiating():
     assert isinstance(perlin_noise,TileHeightGenerator)
     assert len(perlin_noise.gradients) == 100
