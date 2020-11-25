@@ -1,4 +1,4 @@
-from game_map.tiles import tile_layers
+from game_map.tiles.tile_layers import tile_layers
 
 TILE_LAYERS = [
     tile_layers.GrassLayer,
@@ -30,9 +30,9 @@ def test_layer_constructors():
     previous = None
 
     while from_top.lower_layer or from_bottom.lower_layer:
-        assert isinstance(from_top,from_bottom.__class__)
-        assert from_top.fertility == from_bottom.fertility
-        assert from_top.is_passable == from_bottom.is_passable
+        assert isinstance(from_top,from_bottom.__class__), f'{from_bottom=} {from_top=}'
+        assert from_top.fertility == from_bottom.fertility, f'{from_bottom=} {from_top=}'
+        assert from_top.is_passable == from_bottom.is_passable, f'{from_bottom=} {from_top=}'
         from_top = from_top.lower_layer
         from_bottom = from_bottom.lower_layer
 
@@ -57,7 +57,7 @@ def test_repr():
 
         previous = layer
 
-    assert len(previous.__repr__()) == len(starting.__repr__())
+    assert len(previous.__repr__()) == len(starting.__repr__()), f'{starting.__repr__()}, {previous.__repr__()}'
         
 
     

@@ -1,4 +1,4 @@
-from game_map.tiles.abstract_tile_layer import TileLayer
+from game_map.tiles.tile_layers.abstract_tile_layer import TileLayer
 
 class WaterLayer(TileLayer):
     

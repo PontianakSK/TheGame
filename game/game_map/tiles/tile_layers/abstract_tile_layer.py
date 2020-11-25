@@ -58,7 +58,7 @@ class TileLayer:
     def __repr__(self, indent:int=1, direction:Literal[-1,0,1]=0)->str:
 
         sep = '\n'+'\t'*indent
-        end = '\n'+'\t'*(indent-1)
+        end = '\n'+'\t'*(indent-1)+'}'
         result = [f'{__name__}.{self.__class__.__name__}({id(self)}){{',]
         result.append(f'{self.fertility=},{sep}{self.is_passable=},{sep}{self.container=}}}')
 
