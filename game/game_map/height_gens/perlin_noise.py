@@ -13,33 +13,33 @@ AbsCoordDiff = namedtuple('AbsCoordDiff','diff_y diff_x')
 class PerlinNoise(TileHeightGenerator):
     '''
         Generator of Perlin noise for 2d space
-        frequency - number of random gradients along axis
+        _frequency - number of random _gradients along axis
         seed - random seed
     '''
 
 
 
-    def __init__(self,frequency: int, seed: Optional[str] = None):
+    def __init__(self,_frequency: int, seed: Optional[str] = None):
     
         if seed != None:
             random.seed(seed)
-        self.gradients: Dict[Point,Gradient] = {}
-        self.frequency = frequency
-        self.set_gradients()
+        self._gradients: Dict[Point,Gradient] = {}
+        self._frequency = _frequency
+        self._set__gradients()
 
 
 
-    def set_gradients(self):
+    def _set__gradients(self):
         '''
-            Set initial gradients for grid nodes
+            Set initial _gradients for grid nodes
         '''
 
-        x_len = range(self.frequency)
-        y_len = range(self.frequency)
+        x_len = range(self._frequency)
+        y_len = range(self._frequency)
 
         for y,x in product(y_len,x_len):
             point = Point(y, x)
-            self.gradients[point] = Gradient(random.random(),random.random())
+            self._gradients[point] = Gradient(random.random(),random.random())
     
     def get_height(self, y_perc: float, x_perc: float)->float:
         '''
@@ -50,12 +50,12 @@ class PerlinNoise(TileHeightGenerator):
             of area noise is created for.
         '''
 
-        return self.perlin(y_perc, x_perc)
+        return self._perlin(y_perc, x_perc)
 
 
 
     @staticmethod
-    def abs_diff(coords_1: Point, coords_2: Point)->AbsCoordDiff:
+    def _abs_diff(coords_1: Point, coords_2: Point)->AbsCoordDiff:
         '''
             Returns difference modulus between coords_1, coords_2 for each coordinate
         '''
@@ -66,24 +66,24 @@ class PerlinNoise(TileHeightGenerator):
 
 
 
-    def node_impact(self,coords: Point,node_coords: Point)->float:
+    def _node_impact(self,coords: Point,node_coords: Point)->float:
         '''
             Calculates impact of node gradient in point
             with coords.
         '''
-        diff = self.abs_diff(coords, node_coords)
+        diff = self._abs_diff(coords, node_coords)
 
         if diff.diff_x <=1 and diff.diff_y <= 1:
-            grad = self.gradients[node_coords]
-            node_impact = (1-diff.diff_y)*grad.y + (1-diff.diff_x)*grad.x
-            range_weighted_impact = node_impact*(1-diff.diff_y)*(1-diff.diff_x)
+            grad = self._gradients[node_coords]
+            _node_impact = (1-diff.diff_y)*grad.y + (1-diff.diff_x)*grad.x
+            range_weighted_impact = _node_impact*(1-diff.diff_y)*(1-diff.diff_x)
             return range_weighted_impact
 
         return 0
         
 
 
-    def perlin(self,y_perc: float,x_perc: float)->float:
+    def _perlin(self,y_perc: float,x_perc: float)->float:
         '''
             Returns perlin noise for coordinates y_perc, x_perc
             y_perc, x_perc - y, x coordinate from range(0,1),
@@ -91,7 +91,7 @@ class PerlinNoise(TileHeightGenerator):
             where y_min, y_max - starting, ending points
             of area noise is created for.
         '''
-        target_point = Point(y_perc*(self.frequency-1),x_perc*(self.frequency-1))
+        target_point = Point(y_perc*(self._frequency-1),x_perc*(self._frequency-1))
 
         min_x = floor(target_point.x)
         max_x = ceil(target_point.x)
@@ -106,6 +106,6 @@ class PerlinNoise(TileHeightGenerator):
         perlin_noise:float = 0
 
         for node in closest_nodes:
-            perlin_noise += self.node_impact(target_point, node)
+            perlin_noise += self._node_impact(target_point, node)
 
         return perlin_noise

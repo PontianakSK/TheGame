@@ -10,7 +10,7 @@ perlin_noise = PerlinNoise(10,RANDOM_SEED)
 
 def test_initiating():
     assert isinstance(perlin_noise,TileHeightGenerator)
-    assert len(perlin_noise.gradients) == 100
+    assert len(perlin_noise._gradients) == 100
 
 def test_node_values():
     assert perlin_noise.get_height(0,0) == 1.390227352830289

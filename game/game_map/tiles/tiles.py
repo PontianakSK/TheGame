@@ -1,8 +1,10 @@
+from game_map.tiles.tile_layers.abstract_tile_layer import TileLayer
+
 class BasicTile:
 
-    def __init__(self, height=0):
+    def __init__(self, height:float=0):
         self._height = height
-        self.top_layer = None
+        self.top_layer = TileLayer()
 
     @property
     def height(self):

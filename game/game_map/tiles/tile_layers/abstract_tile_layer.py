@@ -1,4 +1,7 @@
 from typing import Optional, Literal
+
+
+
 class TileLayer:
 
 
@@ -10,13 +13,13 @@ class TileLayer:
             upper_layer.lower_layer = lower_layer
 
 
-    def __init__(self, upper_layer=None, lower_layer=None):
+    def __init__(self, upper_layer: Optional['TileLayer']=None, lower_layer: Optional['TileLayer']=None):
         self.bind_layers(upper_layer,self)
         self.bind_layers(self,lower_layer)
         self.lower_layer = lower_layer
-        self._is_passable = True
+        self._is_passable: bool = True
         self._fertility = 1
-        self.container = []
+        self.container: list = []
 
 
     @property

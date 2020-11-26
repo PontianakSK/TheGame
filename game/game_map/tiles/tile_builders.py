@@ -1,7 +1,7 @@
 from game_map.tiles.tiles import BasicTile
 from game_map.tiles.tile_blueprints.abstract_tile_blueprint import TileBlueprint
 
-class AbstractBuilder:
+class AbstractTileBuilder:
 
     def __init__(self, blueprint: TileBlueprint):
         self.blueprint = blueprint
@@ -10,7 +10,7 @@ class AbstractBuilder:
         raise NotImplementedError
 
 
-class HeightBuilder(AbstractBuilder):
+class HeightBuilder(AbstractTileBuilder):
     
     def build(self, params: dict)->BasicTile:
         

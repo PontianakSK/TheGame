@@ -1,0 +1,71 @@
+<diagram program="umletino" version="14.4.0-SNAPSHOT"><zoom_level>10</zoom_level><help_text>Space for diagram notes</help_text><element><id>UMLClass</id><coordinates><x>1470</x><y>500</y><w>270</w><h>90</h></coordinates><panel_attributes>&lt;&lt;interface&gt;&gt;
+TileHeightGenerator
+game::game_map::height_gens::abstract_gen
+--
+/+get_height(y_perc: float, x_perc: float): float/
+group=2</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>1430</x><y>700</y><w>340</w><h>180</h></coordinates><panel_attributes>PerlinNoise
+game::game_map::height_gens::perlin_noise
+--
+#_frequency
+#_gradients
+--
++PerlinNoise(frequency:int, seed:Optional[str]=None)
++get_height(y_perc: float, x_perc: float): float
+#_set_gradients()
+_#_abs_diff(coords_1: Point, coords_2: Point):AbsCoordDiff_
+#_node_impact(self,coords: Point,node_coords: Point): float
+#_perlin(self,y_perc: float,x_perc: float): float
+group=2</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>1590</x><y>580</y><w>30</w><h>140</h></coordinates><panel_attributes>lt=&lt;&lt;-
+group=2</panel_attributes><additional_attributes>10;10;10;120</additional_attributes></element><element><id>UMLClass</id><coordinates><x>1160</x><y>600</y><w>210</w><h>110</h></coordinates><panel_attributes>BasicTile
+game::game_map::tiles::tiles
+--
++height: float
++top_layer: TileLayer 
+#_height: float
+--
+BasicTile(height: float = 0)
+group=1
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>520</x><y>590</y><w>530</w><h>200</h></coordinates><panel_attributes>TileLayer
+game::game_map::tiles::tile_layers::abstract_tile_layer
+--
++upper_layer: TileLayer
++lower_layer: TileLayer
++is_passable: bool
++fertility: float
+#_upper_layer: TileLayer
+#_lower_layer: TileLayer
+#_is_passable: bool
+#_fertility: float
+--
++TileLayer(upper_layer: Optional['TileLayer']=None, lower_layer: Optional['TileLayer']=None)
+_+bind_layers(upper_layer: Optional['TileLayer'], lower_layer: Optional['TileLayer'])_
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>1040</x><y>650</y><w>140</w><h>30</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-</panel_attributes><additional_attributes>120;10;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>470</x><y>540</y><w>450</w><h>170</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-
+m1=0...2
+m2=0...2
+</panel_attributes><additional_attributes>50;140;10;140;10;10;410;10;410;50</additional_attributes></element><element><id>UMLClass</id><coordinates><x>560</x><y>920</y><w>290</w><h>40</h></coordinates><panel_attributes>WaterLayer
+game::game_map::tiles::tile_layers::tile_layers</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>500</x><y>780</y><w>270</w><h>380</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>250;10;250;90;10;90;10;360;60;360</additional_attributes></element><element><id>UMLClass</id><coordinates><x>560</x><y>970</y><w>290</w><h>40</h></coordinates><panel_attributes>SandLayer
+game::game_map::tiles::tile_layers::tile_layers</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>560</x><y>1020</y><w>290</w><h>40</h></coordinates><panel_attributes>StoneLayer
+game::game_map::tiles::tile_layers::tile_layers</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>560</x><y>1070</y><w>290</w><h>40</h></coordinates><panel_attributes>SoilLayer
+game::game_map::tiles::tile_layers::tile_layers</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>560</x><y>1120</y><w>290</w><h>40</h></coordinates><panel_attributes>GrassLayer
+game::game_map::tiles::tile_layers::tile_layers</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>500</x><y>780</y><w>270</w><h>330</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>250;10;250;90;10;90;10;310;60;310</additional_attributes></element><element><id>Relation</id><coordinates><x>500</x><y>780</y><w>270</w><h>280</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>250;10;250;90;10;90;10;260;60;260</additional_attributes></element><element><id>Relation</id><coordinates><x>500</x><y>780</y><w>270</w><h>230</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>250;10;250;90;10;90;10;210;60;210</additional_attributes></element><element><id>Relation</id><coordinates><x>500</x><y>780</y><w>270</w><h>180</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>250;10;250;90;10;90;10;160;60;160</additional_attributes></element><element><id>UMLClass</id><coordinates><x>0</x><y>590</y><w>410</w><h>90</h></coordinates><panel_attributes>&lt;&lt;interface&gt;&gt;
+TileBlueprint
+game::game_map::tiles::tile_blueprints::abstract_tile_blueprint
+--
+/+get_layers(tile: BasicTile)-&gt;Optional[Generator[TileLayer, None, None]/
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>190</x><y>510</y><w>760</w><h>100</h></coordinates><panel_attributes>lt=&lt;-</panel_attributes><additional_attributes>740;80;740;10;10;10;10;80</additional_attributes></element><element><id>Relation</id><coordinates><x>190</x><y>500</y><w>1090</w><h>120</h></coordinates><panel_attributes>lt=&lt;-</panel_attributes><additional_attributes>1070;100;1070;10;10;10;10;90</additional_attributes></element><element><id>UMLClass</id><coordinates><x>0</x><y>740</y><w>410</w><h>110</h></coordinates><panel_attributes>BasicHeightBlueprint
+game::game_map::tiles::tile_blueprints::basic_height_blueprint
+--
+#_height_thresholds: Dict[float, List[class]]
+#_deepest_layers: List[class]
+--
++get_layers(tile: BasicTile)-&gt;Optional[Generator[TileLayer, None, None]
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>190</x><y>670</y><w>30</w><h>90</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>10;10;10;70</additional_attributes></element><element><id>UMLClass</id><coordinates><x>560</x><y>0</y><w>280</w><h>100</h></coordinates><panel_attributes>/AbstractTileBuilder/
+game::game_map::tiles::tile_builders
+--
++blueprint: TileBlueprint
+--
++AbstractTileBuilder(blueprint: TileBlueprint)
+/+build(params: dict): BasicTile/</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>120</x><y>40</y><w>460</w><h>570</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-</panel_attributes><additional_attributes>440;10;10;10;10;550</additional_attributes></element><element><id>Relation</id><coordinates><x>830</x><y>70</y><w>490</w><h>550</h></coordinates><panel_attributes>lt=&lt;-</panel_attributes><additional_attributes>470;530;470;10;10;10</additional_attributes></element><element><id>UMLClass</id><coordinates><x>560</x><y>230</y><w>280</w><h>70</h></coordinates><panel_attributes>HeightBuilder
+game::game_map::tiles::tile_builders
+--
++build(params: dict): BasicTile</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>690</x><y>90</y><w>30</w><h>160</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>10;10;10;140</additional_attributes></element></diagram>
