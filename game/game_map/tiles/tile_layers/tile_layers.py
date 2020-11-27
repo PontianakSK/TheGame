@@ -1,12 +1,15 @@
-from game_map.tiles.tile_layers.abstract_tile_layer import TileLayer
+from game_map.tiles.tile_layers.abstract_tile_layer import TileLayer, InteractiveObject
 
 class WaterLayer(TileLayer):
     
     def __init__(self, *args, **kwargs):
 
         super().__init__(*args, **kwargs)
-        self._is_passable = False
         self._fertility = 0
+
+    def pass_adventurer(self, adventurer: InteractiveObject):
+
+        return False
 
 class SandLayer(TileLayer):
 

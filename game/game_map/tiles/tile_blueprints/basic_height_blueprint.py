@@ -1,11 +1,11 @@
 from typing import Generator, Optional
 
-from game_map.tiles.tile_blueprints.abstract_tile_blueprint import TileBlueprint
+from game_map.blueprints import ObjectBlueprint
 from game_map.tiles.tiles import BasicTile
 from game_map.tiles.tile_layers.abstract_tile_layer import TileLayer
 from game_map.tiles.tile_layers.tile_layers import WaterLayer, SandLayer, SoilLayer, StoneLayer, GrassLayer
 
-class BasicHeightBlueprint(TileBlueprint):
+class BasicHeightBlueprint(ObjectBlueprint):
 
 
 
@@ -21,7 +21,7 @@ class BasicHeightBlueprint(TileBlueprint):
         self._deepest_layers = [WaterLayer,WaterLayer,WaterLayer] 
 
 
-    def get_layers(self, tile: BasicTile)->Optional[Generator[TileLayer, None, None]]:
+    def get_objects(self, tile: BasicTile)->Optional[Generator[TileLayer, None, None]]:
 
         height = tile.height
 

@@ -1,4 +1,8 @@
+import pytest
+
 from game_map.tiles.tile_layers import tile_layers
+from game_map.interactive_object import InteractiveObject
+from game_map.damage import Damage
 
 TILE_LAYERS = [
     tile_layers.GrassLayer,
@@ -8,56 +12,41 @@ TILE_LAYERS = [
     tile_layers.WaterLayer,
 ]
 
-def test_layer_constructors():
+def test_layers_hierarchy():
 
-    previous = None
-    
     for layer_class in TILE_LAYERS:
-        layer = layer_class(lower_layer=previous)
-        previous = layer
 
-    from_bottom = previous
-    previous = None
-    
-    for layer_class in TILE_LAYERS[::-1]:
-        layer = layer_class(upper_layer=previous)
-        previous = layer
-    
-    layer = previous
-    while layer.upper_layer:
-        layer = layer.upper_layer
-    from_top = layer
-    previous = None
+        inner_layer = layer_class()
+        outer_layer = layer_class(inner_layer)
 
-    while from_top.lower_layer or from_bottom.lower_layer:
-        assert isinstance(from_top,from_bottom.__class__), f'{from_bottom=} {from_top=}'
-        assert from_top.fertility == from_bottom.fertility, f'{from_bottom=} {from_top=}'
-        assert from_top.is_passable == from_bottom.is_passable, f'{from_bottom=} {from_top=}'
-        from_top = from_top.lower_layer
-        from_bottom = from_bottom.lower_layer
-
-def test_binding():
-
-    layer_1 = TILE_LAYERS[0]()
-    layer_2 = TILE_LAYERS[-1]()
-    tile_layers.TileLayer.bind_layers(layer_1,layer_2)
-    assert layer_1.lower_layer is layer_2
-    assert layer_2.upper_layer is layer_1
+        assert outer_layer.lower_layer == inner_layer
+        assert outer_layer.fertility == inner_layer.fertility
 
 
-def test_repr():
+def test_lower_layer_uniqueness():
 
-    previous = None
-    starting = None
     for layer_class in TILE_LAYERS:
-        layer = layer_class(lower_layer=previous)
-        
-        if not starting:
-            starting = layer
 
-        previous = layer
+        inner_layer = layer_class()
+        outer_layer = layer_class(inner_layer)
+        excess_layer = layer_class()
 
-    assert len(previous.__repr__()) == len(starting.__repr__()), f'{starting.__repr__()}, {previous.__repr__()}'
+        with pytest.raises(InteractiveObject.AddingObjectError) as excinfo:
+            outer_layer.add_object(excess_layer)
+        assert 'Only one internal TileLayer is allowed' in str(excinfo.value)
+
+def test_damage_acceptance():
+
+    for layer_class in TILE_LAYERS:
+
+        damage = Damage(100)
+        inner_layer = layer_class()
+        outer_layer = layer_class(inner_layer)
+        outer_layer.accept_damage(damage)
         
 
-    
+        
+        
+
+        
+        

@@ -13,18 +13,18 @@ def test_interface():
 
     for case in cases:
         tile = BasicTile(case)
-        layers = blueprint.get_layers(tile)
+        layers = blueprint.get_objects(tile)
         layer = next(layers)
         assert issubclass(layer, TileLayer), f'{case=}'
 
-def test_get_layers():
+def test_get_objects():
     
     blueprint = basic_height_blueprint.BasicHeightBlueprint()
     thresholds = blueprint._height_thresholds.keys()
 
     for threshold in thresholds:
         tile = BasicTile(threshold)
-        layer_gen = blueprint.get_layers(tile)
+        layer_gen = blueprint.get_objects(tile)
 
         for layer in layer_gen:
             assert layer in blueprint._height_thresholds[threshold], f'{threshold=}'
@@ -35,7 +35,7 @@ def test_deepest_layers():
     blueprint = basic_height_blueprint.BasicHeightBlueprint()
     height = -100
     tile = BasicTile(height)
-    layer_gen = blueprint.get_layers(tile)
+    layer_gen = blueprint.get_objects(tile)
 
     for layer in layer_gen:
         assert layer in blueprint._deepest_layers, f'{layer=}'

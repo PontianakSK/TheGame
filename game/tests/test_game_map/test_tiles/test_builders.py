@@ -18,7 +18,7 @@ def test_height_builder_layers():
     next_tile_layer = tile.top_layer
 
     for layer in layers:
-        assert isinstance(next_tile_layer,layer), f'{layer=}'
+        assert isinstance(next_tile_layer,layer), f'{next_tile_layer=}, {layer=}'
         next_tile_layer = next_tile_layer.lower_layer 
 
 

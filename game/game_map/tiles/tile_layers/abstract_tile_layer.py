@@ -1,85 +1,59 @@
 from typing import Optional, Literal
 
+from game_map.interactive_object import InteractiveObject
 
+class TileLayer(InteractiveObject):
 
-class TileLayer:
+    def __init__(self, lower_layer: Optional['TileLayer']=None):
 
-
-    @staticmethod
-    def bind_layers(upper_layer: Optional['TileLayer'], lower_layer: Optional['TileLayer'])->None:
-        if lower_layer:
-            lower_layer.upper_layer = upper_layer
-        if upper_layer:
-            upper_layer.lower_layer = lower_layer
-
-
-    def __init__(self, upper_layer: Optional['TileLayer']=None, lower_layer: Optional['TileLayer']=None):
-        self.bind_layers(upper_layer,self)
-        self.bind_layers(self,lower_layer)
-        self.lower_layer = lower_layer
-        self._is_passable: bool = True
+        super().__init__()
+        self.add_object(lower_layer)
         self._fertility = 1
-        self.container: list = []
 
 
-    @property
-    def upper_layer(self)->Optional['TileLayer']:
+    def add_object(self, inter_object: InteractiveObject):
 
-        return self._upper_layer
+        if isinstance(inter_object, TileLayer):
+            for owned_object in self.container:
+                if isinstance(owned_object, TileLayer):
+                    raise InteractiveObject.AddingObjectError('Only one internal TileLayer is allowed')
+        super().add_object(inter_object)
 
 
-    @upper_layer.setter
-    def upper_layer(self, tile_layer: Optional['TileLayer'])->None:
+    def accept_damage(self, damage):
 
-        self._upper_layer = tile_layer
+        for owned_object in self.container:
+            if not isinstance(owned_object, TileLayer):
+                owned_object.accept_damage(damage)
 
 
     @property
     def lower_layer(self)->Optional['TileLayer']:
 
-        return self._lower_layer
+        for inter_object in self.container:
+            if isinstance(inter_object, TileLayer):
+                return inter_object
+        return None
 
 
     @lower_layer.setter
     def lower_layer(self, tile_layer: Optional['TileLayer'])->None:
-
-        self._lower_layer = tile_layer
-
-
-    @property
-    def is_passable(self)->bool:
-
-        return self._is_passable
+        
+        self.add_object(tile_layer)
 
 
     @property
     def fertility(self)->float:
 
         return self._fertility
+        
+    def __repr__(self):
+        info = [
+            f'fertility: {self.fertility}'
+        ]
+        return super().__repr__(info=info)
     
 
-    def __repr__(self, indent:int=1, direction:Literal[-1,0,1]=0)->str:
-
-        sep = '\n'+'\t'*indent
-        end = '\n'+'\t'*(indent-1)+'}'
-        result = [f'{__name__}.{self.__class__.__name__}({id(self)}){{',]
-        result.append(f'{self.fertility=},{sep}{self.is_passable=},{sep}{self.container=}}}')
-
-        if direction in [0,1]:
-
-            if self.upper_layer:
-                result.append(f'self.upper_layer={self.upper_layer.__repr__(indent+1,1)}')
-            else:
-                result.append(f'{self.upper_layer=}')
-
-        if direction in [-1,0]:
-
-            if self.lower_layer:
-                result.append(f'self.lower_layer={self.lower_layer.__repr__(indent+1,-1)}')
-            else:
-                result.append(f'{self.lower_layer=}')
-
-        return sep.join(result)+end
         
 
 

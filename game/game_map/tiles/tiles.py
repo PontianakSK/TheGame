@@ -1,16 +1,35 @@
+from typing import Optional
+
+from game_map.interactive_object import InteractiveObject
 from game_map.tiles.tile_layers.abstract_tile_layer import TileLayer
 
-class BasicTile:
+class BasicTile(InteractiveObject):
 
     def __init__(self, height:float=0):
+        super().__init__() 
         self._height = height
-        self.top_layer = TileLayer()
 
     @property
     def height(self):
 
         return self._height
 
-    def __repr__(self):
+
+    def add_object(self, inter_object: InteractiveObject):
+
+        if isinstance(inter_object, TileLayer):
+            for owned_object in self.container:
+                if isinstance(owned_object, TileLayer):
+                    raise InteractiveObject.AddingObjectError('Only one internal TileLayer is allowed')
+        super().add_object(inter_object)
+
+    @property
+    def top_layer(self)->Optional[TileLayer]:
+
+        for obj in self.container:
+            if isinstance(obj, TileLayer):
+                return obj
         
-        return f'{self.__class__.__name__}({id(self)}){{\n{self.height=}\n {self.top_layer}}}'
+        return None
+
+

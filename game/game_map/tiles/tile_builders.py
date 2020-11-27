@@ -1,9 +1,9 @@
 from game_map.tiles.tiles import BasicTile
-from game_map.tiles.tile_blueprints.abstract_tile_blueprint import TileBlueprint
+from game_map.blueprints import ObjectBlueprint
 
 class AbstractTileBuilder:
 
-    def __init__(self, blueprint: TileBlueprint):
+    def __init__(self, blueprint: ObjectBlueprint):
         self.blueprint = blueprint
 
     def build(self, params: dict)->BasicTile:
@@ -18,13 +18,13 @@ class HeightBuilder(AbstractTileBuilder):
 
         if height is not None:
             tile = BasicTile(height)
-            layers = self.blueprint.get_layers(tile)
+            layers = self.blueprint.get_objects(tile)
             current_layer = None
 
             for layer in layers:
                 current_layer = layer(lower_layer=current_layer)
 
-            tile.top_layer = current_layer
+            tile.add_object(current_layer)
             
             return tile
 
