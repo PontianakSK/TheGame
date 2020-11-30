@@ -1,9 +1,12 @@
 import pytest
 
 from game_map.tiles import tile_builders
-from game_map.tiles.tile_blueprints.basic_height_blueprint import BasicHeightBlueprint
+from game_map.tiles.tile_blueprints.basic_height_blueprint import (
+    BasicHeightBlueprint
+)
 from game_map.tiles.tile_layers.abstract_tile_layer import TileLayer
 from game_map.tiles.tiles import BasicTile
+
 
 def test_height_builder_layers():
 
@@ -18,8 +21,9 @@ def test_height_builder_layers():
     next_tile_layer = tile.top_layer
 
     for layer in layers:
-        assert isinstance(next_tile_layer,layer), f'{next_tile_layer=}, {layer=}'
-        next_tile_layer = next_tile_layer.lower_layer 
+        assertion_message = f'{next_tile_layer=}, {layer=}'
+        assert isinstance(next_tile_layer, layer), assertion_message
+        next_tile_layer = next_tile_layer.lower_layer
 
 
 def test_height_builder_inputs():
@@ -30,10 +34,12 @@ def test_height_builder_inputs():
 
     with pytest.raises(ValueError) as exc_info:
         builder.build(params)
+    assertion_message = 'If "height" not in params, exception should be raised'
+    assert 'Height should be in params' in str(exc_info.value), (
+        assertion_message
+    )
 
-    assert 'Height should be in params' in str(exc_info.value), 'If "height" not in params, exception should be raised'
-    
-    for height in [-100,0,0.1,0.5,100]:
+    for height in [-100, 0, 0.1, 0.5, 100]:
         params['height'] = height
         tile = builder.build(params)
 
@@ -46,4 +52,3 @@ def test_height_builder_inputs():
             assert isinstance(next_layer, TileLayer), f'{height=}'
 
             next_layer = next_layer.lower_layer
-    

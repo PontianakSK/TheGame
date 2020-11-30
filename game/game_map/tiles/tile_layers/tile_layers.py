@@ -1,7 +1,9 @@
-from game_map.tiles.tile_layers.abstract_tile_layer import TileLayer, InteractiveObject
+from game_map.tiles.tile_layers.abstract_tile_layer import TileLayer
+from game_map.tiles.tile_layers.abstract_tile_layer import InteractiveObject
+
 
 class WaterLayer(TileLayer):
-    
+
     def __init__(self, *args, **kwargs):
 
         super().__init__(*args, **kwargs)
@@ -11,12 +13,14 @@ class WaterLayer(TileLayer):
 
         return False
 
+
 class SandLayer(TileLayer):
 
     def __init__(self, *args, **kwargs):
 
         super().__init__(*args, **kwargs)
         self._fertility = 0
+
 
 class SoilLayer(TileLayer):
 
@@ -25,15 +29,17 @@ class SoilLayer(TileLayer):
         super().__init__(*args, **kwargs)
         self._fertility = 0.2
 
+
 class GrassLayer(TileLayer):
 
     def __init__(self, *args, **kwargs):
 
         super().__init__(*args, **kwargs)
 
+
 class StoneLayer(TileLayer):
 
     def __init__(self, *args, **kwargs):
 
-        super().__init__(*args,**kwargs)
+        super().__init__(*args, **kwargs)
         self._fertility = 0

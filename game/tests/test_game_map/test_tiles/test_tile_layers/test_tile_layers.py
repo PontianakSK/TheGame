@@ -12,6 +12,7 @@ TILE_LAYERS = [
     tile_layers.WaterLayer,
 ]
 
+
 def test_layers_hierarchy():
 
     for layer_class in TILE_LAYERS:
@@ -35,6 +36,7 @@ def test_lower_layer_uniqueness():
             outer_layer.add_object(excess_layer)
         assert 'Only one internal TileLayer is allowed' in str(excinfo.value)
 
+
 def test_damage_acceptance():
 
     for layer_class in TILE_LAYERS:
@@ -43,10 +45,3 @@ def test_damage_acceptance():
         inner_layer = layer_class()
         outer_layer = layer_class(inner_layer)
         outer_layer.accept_damage(damage)
-        
-
-        
-        
-
-        
-        
