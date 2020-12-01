@@ -1,6 +1,6 @@
 from typing import Optional, List, Dict
 
-from game_map.damage import Damage  # type: ignore
+from game_map.impact import Impact  # type: ignore
 
 
 class InteractiveObject:
@@ -22,24 +22,35 @@ class InteractiveObject:
 
         return self._container.copy()
 
-    def add_object(self, inter_object: 'InteractiveObject'):
+    def add_object(self, inter_object: 'InteractiveObject') -> None:
 
         self._container.append(inter_object)
 
-    def deal_damage(self, inter_object: 'InteractiveObject') -> None:
+    def remove_object(self, inter_object: 'InteractiveObject') -> None:
+
+        self._container.remove(inter_object)
+
+    def affect(self, inter_object: 'InteractiveObject') -> None:
 
         raise NotImplementedError
 
-    def accept_damage(self, damage: 'Damage') -> None:
+    def accept_impact(self, impact: 'Impact') -> 'Impact':
 
         for owned_object in self.container:
-            owned_object.accept_damage(damage)
 
-    def move(destination: 'InteractiveObject') -> None:
+            if owned_object:
+                owned_object.accept_impact(impact)
 
-        raise NotImplementedError
+        return Impact
 
-    def pass_adventurer(adventurer: 'InteractiveObject') -> bool:
+    def move(self, destination: 'InteractiveObject') -> None:
+
+        if self.location:
+            self.location.remove_object(self)
+        destination.add_object(self)
+        self.location = destination
+
+    def pass_adventurer(self, adventurer: 'InteractiveObject') -> bool:
 
         return True
 

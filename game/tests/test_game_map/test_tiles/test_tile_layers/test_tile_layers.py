@@ -2,7 +2,7 @@ import pytest
 
 from game_map.tiles.tile_layers import tile_layers
 from game_map.interactive_object import InteractiveObject
-from game_map.damage import Damage
+from game_map.impact import Impact
 
 TILE_LAYERS = [
     tile_layers.GrassLayer,
@@ -37,11 +37,11 @@ def test_lower_layer_uniqueness():
         assert 'Only one internal TileLayer is allowed' in str(excinfo.value)
 
 
-def test_damage_acceptance():
+def test_impact_acceptance():
 
     for layer_class in TILE_LAYERS:
 
-        damage = Damage(100)
+        impact = Impact()
         inner_layer = layer_class()
         outer_layer = layer_class(inner_layer)
-        outer_layer.accept_damage(damage)
+        outer_layer.accept_impact(impact)

@@ -52,14 +52,7 @@ game::game_map::tiles::tile_blueprints::basic_height_blueprint
 #_height_thresholds: Dict[float, List[class]]
 #_deepest_layers: List[class]
 --
-+get_objects(tile: BasicTile)-&gt;Optional[Generator[TileLayer, None, None]</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>270</x><y>1110</y><w>30</w><h>90</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>10;10;10;70</additional_attributes></element><element><id>UMLClass</id><coordinates><x>290</x><y>570</y><w>280</w><h>100</h></coordinates><panel_attributes>/AbstractTileBuilder/
-game::game_map::tiles::tile_builders
---
-+blueprint: TileBlueprint
---
-+AbstractTileBuilder(blueprint: TileBlueprint)
-/+build(params: dict): BasicTile/
-bg=red</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>200</x><y>480</y><w>410</w><h>570</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-</panel_attributes><additional_attributes>390;10;10;10;10;550</additional_attributes></element><element><id>Relation</id><coordinates><x>830</x><y>50</y><w>1150</w><h>400</h></coordinates><panel_attributes>lt=&lt;-</panel_attributes><additional_attributes>1130;10;10;10;10;380</additional_attributes></element><element><id>UMLClass</id><coordinates><x>640</x><y>670</y><w>280</w><h>70</h></coordinates><panel_attributes>TileHeightBuilder
++get_objects(tile: BasicTile)-&gt;Optional[Generator[TileLayer, None, None]</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>270</x><y>1110</y><w>30</w><h>90</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>10;10;10;70</additional_attributes></element><element><id>Relation</id><coordinates><x>200</x><y>480</y><w>410</w><h>570</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-</panel_attributes><additional_attributes>390;10;10;10;10;550</additional_attributes></element><element><id>Relation</id><coordinates><x>830</x><y>50</y><w>1150</w><h>400</h></coordinates><panel_attributes>lt=&lt;-</panel_attributes><additional_attributes>1130;10;10;10;10;380</additional_attributes></element><element><id>UMLClass</id><coordinates><x>640</x><y>670</y><w>280</w><h>70</h></coordinates><panel_attributes>TileHeightBuilder
 game::game_map::tiles::tile_builders
 --
 +build(params: dict): BasicTile</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>770</x><y>530</y><w>30</w><h>160</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>10;10;10;140</additional_attributes></element><element><id>UMLClass</id><coordinates><x>1960</x><y>50</y><w>240</w><h>200</h></coordinates><panel_attributes>/InteractiveObject/
@@ -72,27 +65,26 @@ game_map::interactive_object
 -_resists: Dict[Damage, float]
 --
 +add_object(inter_object: InteractiveObject)
-/+deal_damage(inter_object: InteractiveObject)/
-/+accept_damage(damage: Damage)/
+/+affect(inter_object: InteractiveObject)/
+/+accept_impact(impact: Impact): Impact/
 /+move(destination: inter_object)/
 /+pass_adventurer(adventurer: InteractiveObject): bool/
 group=10
-</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>1960</x><y>280</y><w>240</w><h>80</h></coordinates><panel_attributes>/Damage/
-game_map::damage
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>1960</x><y>280</y><w>240</w><h>80</h></coordinates><panel_attributes>&lt;&lt;interface&gt;&gt;
+/Impact/
+game_map::impact
 --
-+amount
---
-/+deal_damage(target: InteractiveObject)/
+/+affect(target: InteractiveObject)/
 group=10</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>1040</x><y>90</y><w>940</w><h>960</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>920;10;20;10;10;940</additional_attributes></element><element><id>Relation</id><coordinates><x>2060</x><y>240</y><w>30</w><h>60</h></coordinates><panel_attributes>lt=&lt;-
 group=10</panel_attributes><additional_attributes>10;40;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>2050</x><y>0</y><w>210</w><h>120</h></coordinates><panel_attributes>
 lt=&lt;&lt;&lt;&lt;&lt;-
 m1=0...n
 m2=0...1
 group=10</panel_attributes><additional_attributes>150;90;190;90;190;10;10;10;10;50</additional_attributes></element><element><id>UMLClass</id><coordinates><x>590</x><y>435</y><w>390</w><h>100</h></coordinates><panel_attributes>/InteractiveObjectCreator/
+game_map::interactive_object_creator
 --
 +blueprint: ObjectBlueprint
 --
-+InteractiveObjectGenerator(blueprint: ObjectBlueprint)
++InteractiveObjectCreator(blueprint: ObjectBlueprint)
 /+create_objects(params, InteractiveObject=None): InteractiveObject)
-bg=green
 </panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>1300</x><y>150</y><w>680</w><h>910</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>660;10;20;10;10;890</additional_attributes></element></diagram>

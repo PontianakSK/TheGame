@@ -1,17 +1,8 @@
 from game_map.tiles.tiles import BasicTile
-from game_map.blueprints import ObjectBlueprint
+from game_map.intaractive_object_creator import InteractiveObjectCreator
 
 
-class AbstractTileBuilder:
-
-    def __init__(self, blueprint: ObjectBlueprint):
-        self.blueprint = blueprint
-
-    def build(self, params: dict) -> BasicTile:
-        raise NotImplementedError
-
-
-class HeightBuilder(AbstractTileBuilder):
+class HeightBuilder(InteractiveObjectCreator):
 
     def build(self, params: dict) -> BasicTile:
 
