@@ -1,5 +1,7 @@
-from game_map.tiles.tile_layers.abstract_tile_layer import TileLayer
-from game_map.tiles.tile_layers.abstract_tile_layer import InteractiveObject
+from game_map.area.tiles.tile_layers.abstract_tile_layer import (
+    TileLayer,
+    InteractiveObject,
+)
 
 
 class WaterLayer(TileLayer):
@@ -28,13 +30,6 @@ class SoilLayer(TileLayer):
 
         super().__init__(*args, **kwargs)
         self._fertility = 0.2
-
-
-class GrassLayer(TileLayer):
-
-    def __init__(self, *args, **kwargs):
-
-        super().__init__(*args, **kwargs)
 
 
 class StoneLayer(TileLayer):

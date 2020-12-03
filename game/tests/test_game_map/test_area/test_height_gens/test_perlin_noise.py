@@ -1,7 +1,9 @@
 import pytest
 
-from game_map.height_gens.perlin_noise import PerlinNoise
-from game_map.height_gens.abstract_gen import TileHeightGenerator
+from game_map.area.height_gens.perlin_noise import (
+    PerlinNoise,
+    TileHeightGenerator,
+)
 from tests.settings import RANDOM_SEED
 
 perlin_noise = PerlinNoise(10, RANDOM_SEED)

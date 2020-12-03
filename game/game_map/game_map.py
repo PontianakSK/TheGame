@@ -1,6 +1,6 @@
 from typing import Optional
 
-from game_map.tiles.tiles import BasicTile  # type: ignore
+from game_map.area.tiles.tiles import BasicTile  # type: ignore
 from game_map.interactive_object import InteractiveObject  # type: ignore
 
 

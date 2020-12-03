@@ -7,7 +7,6 @@ class InteractiveObject:
 
     def __init__(self):
 
-        self.health: int = 100
         self.location: Optional['InteractiveObject'] = None
         self._container: List['InteractiveObject'] = []
         self._resists: Dict[type, float] = {}

@@ -4,7 +4,7 @@ from math import ceil, floor
 import random
 from typing import Optional, Dict
 
-from game_map.height_gens.abstract_gen import (  # type: ignore
+from game_map.area.height_gens.abstract_gen import (  # type: ignore
     TileHeightGenerator
 )
 

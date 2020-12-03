@@ -1,13 +1,16 @@
 from typing import Optional
 
 from game_map.interactive_object import InteractiveObject
-from game_map.tiles.tile_layers.abstract_tile_layer import TileLayer
+from game_map.area.tiles.tile_layers.abstract_tile_layer import TileLayer
+from game_map.area.area import Area, Point
 
 
-class BasicTile(InteractiveObject):
+class BasicTile(Area):
 
-    def __init__(self, height: float = 0):
-        super().__init__()
+    def __init__(self, y: int, x: int, height: float = 0):
+        bottom_left = Point(y, x)
+        top_right = Point(y + 1, x + 1)
+        super().__init__(bottom_left, top_right)
         self._height = height
 
     @property
@@ -43,3 +46,10 @@ class BasicTile(InteractiveObject):
                 return obj
 
         return None
+
+    def __repr__(self, *args, **kwargs):
+
+        info = [f'height: {self._height}']
+        result = super().__repr__(*args, **kwargs, info=info)
+
+        return result

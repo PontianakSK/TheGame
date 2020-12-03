@@ -1,11 +1,10 @@
 import pytest
 
-from game_map.tiles.tile_layers import tile_layers
+from game_map.area.tiles.tile_layers import tile_layers
 from game_map.interactive_object import InteractiveObject
 from game_map.impact import Impact
 
 TILE_LAYERS = [
-    tile_layers.GrassLayer,
     tile_layers.SandLayer,
     tile_layers.SoilLayer,
     tile_layers.StoneLayer,
