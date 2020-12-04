@@ -39,3 +39,9 @@ class Point:
         result = Point(round(self.y / other), round(self.x / other))
 
         return result
+
+    def __repr__(self):
+
+        result = f'Point ({id(self)}: {self.y=}, {self.x=})'
+
+        return result

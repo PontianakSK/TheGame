@@ -1,3 +1,5 @@
+from itertools import product
+
 from game_map.area.area_fillers.height_filler import HeightFiller
 from game_map.area.area import Area
 from game_map.area.point import Point
@@ -36,3 +38,18 @@ def test_filler():
             msg = f'{i=}, {tile=}'
             assert tile._height == 100, msg
             assert isinstance(tile.top_layer, tile_layers.StoneLayer), msg
+
+
+def test_tile_coordinates():
+    builder = TileBuilder()
+    height_gen = TestGen()
+    filler = HeightFiller(height_gen, builder)
+    left_bottom = Point(0, 0)
+    right_top = Point(2, 2)
+    area = Area(left_bottom, right_top)
+    area = filler.fill(area)
+
+    for y, x in product(range(2), range(2)):
+        tile = area.get_object(y, x)
+        point = Point(y, x)
+        assert tile.bottom_left == point, f'{point=}, {tile=}'

@@ -1,12 +1,7 @@
 from typing import Optional
 
 from game_map.area.tiles.tiles import BasicTile  # type: ignore
-from game_map.interactive_object import InteractiveObject  # type: ignore
-
-
-class Area(InteractiveObject):
-
-    pass
+from game_map.area.area import Area, Point  # type: ignore
 
 
 class GameMap(Area):
@@ -15,20 +10,18 @@ class GameMap(Area):
     _initialized: bool = False
 
     @staticmethod
-    def __new__(cls, size_y, size_x):
+    def __new__(cls, bottom_left: Point, top_right: Point) -> 'GameMap':
 
         if not cls._instance:
             cls._instance = super(GameMap, cls).__new__(cls)
 
         return cls._instance
 
-    def __init__(self, size_y: int, size_x: int) -> None:
+    def __init__(self, bottom_left: Point, top_right: Point) -> None:
 
         if (GameMap._initialized):
             return
-        super().__init__()
-        self.size_y = size_y
-        self.size_x = size_x
+        super().__init__(bottom_left, top_right)
         GameMap._initialized = True
 
     def tile(self, y: int, x: int) -> BasicTile:
@@ -44,7 +37,7 @@ class GameMap(Area):
 
         return super().__repr__(*args, **kwargs, info=info)
 
-    def add_object(self, inter_object: InteractiveObject) -> None:
+    def add_object(self, inter_object: BasicTile) -> None:
 
         if isinstance(inter_object, BasicTile):
             super().add_object(inter_object)
@@ -52,4 +45,4 @@ class GameMap(Area):
 
         exception_message = 'Map should contains BasicTiles only!'
 
-        raise InteractiveObject.AddingObjectError(exception_message)
+        raise BasicTile.AddingObjectError(exception_message)

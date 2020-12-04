@@ -1,3 +1,5 @@
+from typing import Optional
+
 from game_map.interactive_object import InteractiveObject  # type: ignore
 from game_map.area.point import Point  # type: ignore
 
@@ -9,6 +11,17 @@ class Area(InteractiveObject):
         super().__init__()
         self.bottom_left = bottom_left
         self.top_right = top_right
+
+    def get_object(self, y: int, x: int) -> Optional[InteractiveObject]:
+
+        index_ = y * self.size_x + x
+
+        try:
+            result = self.container[index_]
+        except IndexError:
+            return None
+
+        return result
 
     @property
     def center(self) -> Point:

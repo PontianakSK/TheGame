@@ -49,7 +49,10 @@ class BasicTile(Area):
 
     def __repr__(self, *args, **kwargs):
 
-        info = [f'height: {self._height}']
+        info = [
+            f'height: {self._height}',
+            f'coordinates: {self.bottom_left}',
+            ]
         result = super().__repr__(*args, **kwargs, info=info)
 
         return result
