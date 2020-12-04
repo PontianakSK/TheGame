@@ -41,6 +41,7 @@ def test_filler():
 
 
 def test_tile_coordinates():
+
     builder = TileBuilder()
     height_gen = TestGen()
     filler = HeightFiller(height_gen, builder)

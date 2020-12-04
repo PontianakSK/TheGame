@@ -26,7 +26,9 @@ class GameMap(Area):
 
     def tile(self, y: int, x: int) -> BasicTile:
 
-        raise NotImplementedError
+        result = self.get_object(y, x)
+
+        return result
 
     def __repr__(self, *args, **kwargs):
 
