@@ -1,9 +1,15 @@
 from typing import Optional
 
-from game_map.interactive_object import InteractiveObject
+from game_map.interactive_object import InteractiveObject, Impact
 
 
 class TileLayer(InteractiveObject):
+    '''
+    Each tile can consist of several tile layers
+    like real soil. For instance rock under sand
+    under water. The nasting of layers represents
+    the depth
+    '''
 
     def __init__(self, lower_layer: Optional['TileLayer'] = None):
 
@@ -13,12 +19,20 @@ class TileLayer(InteractiveObject):
 
     @staticmethod
     def is_tile_layer(inter_object: InteractiveObject) -> bool:
+        '''
+        Just checks if other object is TileLayer.
+        Returns True if it is and False otherwise.
+        '''
 
         result = isinstance(inter_object, TileLayer)
 
         return result
 
     def add_object(self, inter_object: InteractiveObject):
+        '''
+        Tile layer can contain any object but only one other
+        tile layer. Next should be placed inside lower level.
+        '''
 
         if TileLayer.is_tile_layer(inter_object):
             tiles_in_container = map(TileLayer.is_tile_layer, self.container)
@@ -29,14 +43,22 @@ class TileLayer(InteractiveObject):
 
         super().add_object(inter_object)
 
-    def accept_damage(self, damage):
+    def accept_impact(self, impact: Impact):
+        '''
+        Any Impact affect only objects on this
+        tile layer.
+        '''
 
         for owned_object in self.container:
             if not isinstance(owned_object, TileLayer):
-                owned_object.accept_damage(damage)
+                owned_object.accept_impact(Impact)
 
     @property
     def lower_layer(self) -> Optional['TileLayer']:
+        '''
+        If this tile layer contains other tile layer
+        the second one is considered as lower.
+        '''
 
         for inter_object in self.container:
             if isinstance(inter_object, TileLayer):
@@ -50,6 +72,9 @@ class TileLayer(InteractiveObject):
 
     @property
     def fertility(self) -> float:
+        '''
+        Fertility affects how fast plants grow.
+        '''
 
         return self._fertility
 
