@@ -6,6 +6,12 @@ from game_map.area.area import Area, Point  # type: ignore
 
 class GameMap(Area):
 
+    '''
+    Area object that containes all map tiles
+    in one game. Is Singleton.
+    '''
+
+    # used for singleton realization
     _instance: Optional['GameMap'] = None
     _initialized: bool = False
 
@@ -25,8 +31,12 @@ class GameMap(Area):
         GameMap._initialized = True
 
     def tile(self, y: int, x: int) -> BasicTile:
+        '''
+        Used to get tiles by coordinates (tiles
+        are stored in flat list).
+        '''
 
-        result = self.get_object(y, x)
+        result = super().get_object(y, x)
 
         return result
 
@@ -40,6 +50,10 @@ class GameMap(Area):
         return super().__repr__(*args, **kwargs, info=info)
 
     def add_object(self, inter_object: BasicTile) -> None:
+        '''
+        GameMap should contain only tile objects. All other
+        objects should be placed inside tiles.
+        '''
 
         if isinstance(inter_object, BasicTile):
             super().add_object(inter_object)

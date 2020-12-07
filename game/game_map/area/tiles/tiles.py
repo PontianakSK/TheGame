@@ -6,6 +6,10 @@ from game_map.area.area import Area, Point
 
 
 class BasicTile(Area):
+    '''
+    Simple tile object. Represent smallest part
+    of the Game map.
+    '''
 
     def __init__(self, y: int, x: int, height: float = 0):
         bottom_left = Point(y, x)
@@ -15,17 +19,28 @@ class BasicTile(Area):
 
     @property
     def height(self):
+        '''
+        Height of tile affects type of landscape in some
+        builders. Also affects weather.
+        '''
 
         return self._height
 
     @staticmethod
     def is_tile_layer(inter_object: InteractiveObject) -> bool:
+        '''
+        Just checks if object is TileLayer
+        '''
 
         result = isinstance(inter_object, TileLayer)
 
         return result
 
     def add_object(self, inter_object: InteractiveObject):
+        '''
+        Tiles can contain any object. But only one TileLayer.
+        lower layers should contain each other.
+        '''
 
         if BasicTile.is_tile_layer(inter_object):
             tiles_in_container = map(BasicTile.is_tile_layer, self.container)
@@ -38,6 +53,10 @@ class BasicTile(Area):
 
     @property
     def top_layer(self) -> Optional[TileLayer]:
+        '''
+        Returns top layer of this tile if it exists.
+        Returns None otherwise.
+        '''
 
         for obj in self.container:
 

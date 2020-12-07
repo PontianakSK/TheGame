@@ -2,6 +2,9 @@ from typing import Any
 
 
 class Point:
+    '''
+    Simple two dimensional point class.
+    '''
 
     def __init__(self, y: int, x: int):
         self.y = y

@@ -8,6 +8,7 @@ class TileBuilder:
 
     def __init__(self):
 
+        # defines TileLayers depanding on tile's height.
         self._layer_height_thresholds = [
             (0.7, tile_layers.SoilLayer),
             (0.4, tile_layers.SandLayer),
@@ -16,6 +17,10 @@ class TileBuilder:
         self._deepest_layer = tile_layers.StoneLayer
 
     def build(self, y: int, x: int, height: float) -> BasicTile:
+        '''
+        Creates Tile and filles with layers depending on tile's
+        height.
+        '''
 
         tile = BasicTile(y, x, height)
         layers = []
@@ -29,6 +34,9 @@ class TileBuilder:
         return tile
 
     def _chain_layers(self, layers: List[Callable]) -> tile_layers.TileLayer:
+        '''
+        Creates layers one by one and adds previously created inside.
+        '''
 
         current_layer = self._deepest_layer()
 
